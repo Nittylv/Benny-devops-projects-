@@ -1,0 +1,533 @@
+﻿PROJECT 1(LAMP STACK)
+
+
+Aim: To build a web stack used to develop a software product using Lamp stack.
+LAMP which stands for Linux, Apache, MysQl and PHP. Each component contributes essential capabilities to the stack.
+
+
+-The LAMP stack is a popular software bundle using open source components to build and deliver web applications
+-With open-source tools for an operating system (Linux), web server (Apache), database server (MySQL), and programming language (PHP), the LAMP stack is an efficient and flexible method that enables competition with commercial software developers.
+
+
+The Web Server: Apache HTTP server
+The open-source Apache web server manages the traffic a website or web application receives. Like other web servers, Apache processes online client requests and communicates with an internal database (MySQL) and transmit information through internet using HTTP 
+The Database Server: MySQL
+The open-source relational database management system (RDBMS) MySQL, is the most popular free option for storing application data. Administrators can seamlessly query data with the SQL language while managing information for client use.
+The Programming Language: PHP
+The Hypertext Preprocessor, more commonly known as PHP, is a general-purpose scripting language used for creating dynamic web content. Because HTML is a static processor, inserting PHP scripting into pages enables dynamic web applications, tools, and processes. In addition to PHP, Perl and Python are also widely used for the LAMP stack.
+When a visitor opens the webpage, the server processes the PHP commands and sends the results to the visitor's browser.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+HOW DOES LAMP STACK WORK?
+1. Clients navigate to a website and make a request on their web browser.
+2. If the client request is for a PHP file, Apache uses PHP to execute the request.
+3. With other data requests, the Apache fetches MySQL data.
+4. The Apache web server receives granted resources from PHP and MySQL.
+5. Apache processes the resource to present HTML content to the client.
+
+
+
+
+
+
+
+
+Software Development Life Cycle(SDLC)- defines the complete cycle of development from planning to creating to testing to deploying a software product.
+
+
+CHMOD (Change mode)- A command in Linux/Unix used to change access permission of a file system. (Directory files, regular files, etc) using either a numeric or symbolic code
+
+
+CHOWN(Change Ownership)-A command used in linux/Unix operating systems to change access ownership of a file system.
+
+
+
+
+Both TCP and UDP are transport layer protocols, TCP ensures data can be transmitted between server and client with reliability while UDP is a connection less protocol without guarantee if a message would be delivered or not.
+
+
+  Ports commonly used in web are listed as follows: http-port 80, https-port 443, ftp, ssh.
+Preparatory Steps 
+A.  I created AWS account using aws.amazon.com and chose ubuntu 20.0 64 bits as server 
+B. Connected to my EC2 instance by launching 
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  C. I chose 64 bits as my system size is 64 bits operating system  
+  
+
+
+
+
+
+
+
+
+
+
+
+D. I chose t2 micro free tier       
+C. You can either choose a new pair key and download or an existing one i chose a new one and saved securely as this is my PEM file, i chose a new security group and clicked next all the way till the end and launched instance     
+
+
+E. Instance is launching now        
+
+
+F. Instance is running now
+  
+
+
+
+
+
+
+
+
+
+G: i downloaded windows terminal from microsoft store 
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+H: checking to see if my private key file is in downloads using cd Downloads/ and connect to ssh using   ssh -i "BennyEC2.pem" ubuntu@ec2-34-229-92-249.compute-1.amazonaws.com
+
+
+Note: i got an error here and tried to rerun the command again 
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+I: I tried to connect but without changing directory to where my PEM file is and it was denied from the red arrow below
+  
+
+
+
+
+
+
+
+
+
+
+
+STEP 1: INSTALLING APACHE AND UPDATING FIREWALL 
+Apache HTTP Server is the most widely used web server software, Its purpose is to create  a connection between a server and the browsers of website visitors (Firefox, Google Chrome, Safari, etc.) while delivering files between them. 
+
+
+Steps:
+A- Update app using  sudo apt update
+  
+
+
+
+
+
+
+
+B: Install Apache using sudo apt install apache2
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+C: To verify that apache2 is running sudo systemctl status apache2
+
+
+D:  If it is green and running, then you did everything correctly and yes it GREEN.
+        
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+E:I edited the security group and added a new connection through port 80
+
+
+
+
+  
+
+F: To access server locally in ubuntu shell can be done either by 
+Dns name using 
+curl http://localhost:80 or by 
+IP address using curl http://127.0.0.1:80 but i used IP address 
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+G: To test if Apache HTTP server is responding to request from internet using http://<Public-IP-Address>:80 which is  http://34.229.92.249:80 (public IP address used is 34.229.92.249)
+
+
+Side note: I added a new security rule and chose HTTP type and anywhere as source) 
+  
+
+
+
+If you see the following page, then your web server is now correctly installed and accessible through your firewall.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STEP 2: Installing MySQL
+Steps:
+A: Install  MySQL using sudo apt install mysql-server
+  
+
+
+
+
+
+
+
+
+
+B: Running a security script to remove some insecure default settings using 
+           sudo mysql_secure_installation
+
+
+  
+
+
+
+
+
+
+
+C: To test if i can login to mysql using sudo mysql
+  
+
+
+
+
+
+
+
+
+
+STEP 3: InSTALLING PHP
+Steps:
+ A: Install php using sudo apt install php libapache2-mod-php php-mysql
+
+
+Side Note: In order for Apache to handle PHP files, we need  
+Php-mysql and libapache2-mod-php install 
+  
+
+B: To confirm PHP version using 
+php -v
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STEP 4: Creating a Virtual Host for your Website using Apache in order to test PHP script
+
+
+
+
+Steps:
+A: Make a directory name “projectone” using 
+sudo mkdir /var/www/projectone
+
+
+
+
+  
+
+
+
+
+
+
+
+B: Assigning ownership of the directory with your current system user 
+sudo chown -R $USER:$USER /var/www/projectone
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+C: create and open a new configuration file in Apache’s 
+Sites-available directory using Vi editor with the command below 
+ sudo vi /etc/apache2/sites-available/projectone.conf
+
+
+
+
+
+
+  
+
+
+
+D: To check file saved on Vi using sudo ls /etc/apache2/sites-available
+
+
+  
+
+
+
+
+
+
+
+
+
+E:  To enable the new virtual host using sudo a2ensite projectone
+
+
+  
+
+
+
+
+
+
+
+F: To disable Apache’s default website since i did not use a custom domain name using sudo a2dissite 000-default
+  
+
+
+
+
+
+
+
+
+
+
+
+G: To make sure your configuration file doesn’t contain syntax errors
+Using sudo apache2ctl configtest
+  
+
+
+
+
+
+
+
+H:  Reload Apache to let  changes take effect using 
+sudo systemctl reload apache2
+  
+
+
+
+
+
+I: Creating an index.html file in this location /var/www/projectone to test if virtual hosts worked using 
+sudo echo 'Hello LAMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectone/index.html
+
+
+  
+
+
+
+
+
+J: I opened my browser and try to open your website URL using IP address:
+
+
+http://<Public-IP-Address>:80 using my public IP address and got this “Echo”output
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+STEP 5: Enable PHP on the website
+steps:
+A: edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive using sudo vim /etc/apache2/mods-enabled/dir.conf
+
+
+  
+
+
+
+
+
+
+
+B: Reload Apache for changes to take place using 
+sudo systemctl reload apache2
+  
+
+
+
+
+
+C: I created a PHP script to test that PHP is correctly installed and configured properly on the server and also create a test script to see that Apache is able handle PHP test files 
+- Create a new file named index.php inside your custom web root folder:
+vim /var/www/projectlone/index.php and paste the content below  into the file and save file.
+<?php
+phpinfo();
+
+
+D: Reload webpage and i got this page below which means my PHP installation is working properly
+ 
+  
+
+
+
+E: For security reasons, it is best to remove the file created as it contains sensitive information my ubuntu server, using the command below 
+         sudo rm /var/www/projectlamp/index.php
